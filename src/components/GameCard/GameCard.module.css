@@ -50,7 +50,15 @@
   line-height: 1.05;
 }
 
-/* “/ 30명 남음” 텍스트 */
+/* 숫자 옆에 붙는 "명" */
+.counterUnit {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #555;
+  margin-left: 0.25rem;
+}
+
+/* 예전 "/ 30명 남음"용 - 지금은 안 씀, 필요 없으면 지워도 됨 */
 .counterTarget {
   font-size: 1.2rem;
   font-weight: 500;

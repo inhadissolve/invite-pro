@@ -44,40 +44,43 @@ function GameCard({ gameTitle, ranks, prevRanks, unit, isPopped }) {
       
       {/* ⭐ 4. 카운터 게임이면 바운스 애니메이션 */}
       {isCounter ? (
-        <motion.div
-          key={counterBounceKey}
-          className={styles.counterWrapper}
-          initial={{ scale: 1 }}
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-        >
-          <span className={styles.counterCurrent}>{counterData.current}</span>
-          <span className={styles.counterTarget}> / {counterData.target} {unit}</span>
-        </motion.div>
-      ) : (
-        <LayoutGroup id={gameTitle}>
-          <div className={styles.rankList}>
-            {displayRanks.map((rank, index) => {
-              let prevRank = null;
-              if (rank && prevRanks) {
-                const prevRankIndex = prevRanks.findIndex(p => p.id === rank.id);
-                if (prevRankIndex !== -1) prevRank = prevRankIndex + 1; 
-              }
-              return (
-                <RankItem
-                  key={rank?.id || `empty-${index}`} 
-                  rank={index + 1} 
-                  prevRank={prevRank}
-                  name={rank?.name}
-                  score={rank?.score}
-                  profileImage={rank?.profileImage}
-                  unit={unit}
-                />
-              );
-            })}
-          </div>
-        </LayoutGroup>
-      )}
+  <motion.div
+    key={counterBounceKey}
+    className={styles.counterWrapper}
+    initial={{ scale: 1 }}
+    animate={{ scale: [1, 1.2, 1] }}
+    transition={{ duration: 0.35, ease: "easeOut" }}
+  >
+    <span className={styles.counterCurrent}>
+      {counterData.current}
+      {unit && <span className={styles.counterUnit}> {unit}</span>}
+    </span>
+  </motion.div>
+) : (
+  <LayoutGroup id={gameTitle}>
+    <div className={styles.rankList}>
+      {displayRanks.map((rank, index) => {
+        let prevRank = null;
+        if (rank && prevRanks) {
+          const prevRankIndex = prevRanks.findIndex(p => p.id === rank.id);
+          if (prevRankIndex !== -1) prevRank = prevRankIndex + 1; 
+        }
+        return (
+          <RankItem
+            key={rank?.id || `empty-${index}`} 
+            rank={index + 1} 
+            prevRank={prevRank}
+            name={rank?.name}
+            score={rank?.score}
+            profileImage={rank?.profileImage}
+            unit={unit}
+          />
+        );
+      })}
+    </div>
+  </LayoutGroup>
+)}
+
     </motion.div>
   );
 }

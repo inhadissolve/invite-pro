@@ -12,7 +12,13 @@ export const GAME_LIST = [
   { id: 'game3', title: '핑퐁 스나이퍼', sort: 'desc', unit: '점' },
   { id: 'game4', title: '병뚜껑 날리기', sort: 'desc', unit: '점' },
   { id: 'game5', title: '주님의 소방관', sort: 'desc', unit: '개' },
-  { id: 'game6', title: '라이트 캐치', sort: 'desc', unit: '점' },
+  { 
+    id: 'game6', 
+    title: '라이트 캐치', 
+    type: 'counter', 
+    target: 44, 
+    unit: '명' 
+  },
   { 
     id: 'game7', 
     title: '타이머 맞추기', 

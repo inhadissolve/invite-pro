@@ -16,7 +16,7 @@ export function calculateLeaderboards(studentData, gameList) {
         ranks: [ 
           { type: 'counter', current: remainingCount, target: target }
         ],
-        unit: '명 남음',
+        unit: '명',
       };
     }
 
