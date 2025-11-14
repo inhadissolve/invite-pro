@@ -1,0 +1,96 @@
+.rankItem {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 6px 10px;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.95rem;
+  color: #333;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 메달 아이콘 / 숫자 / 이름 / 점수는 그대로 사용 */
+.medalIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+.rankNumber {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #777;
+  width: 24px;
+  text-align: center;
+  margin-right: 8px;
+}
+
+.playerInfo {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  border: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+.name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.3rem;
+}
+
+.score {
+  font-size: 2rem;
+  font-weight: 1000;
+  color: #004085;
+  min-width: 52px;
+  text-align: right;
+  margin-left: 4px;
+}
+
+.unit {
+  font-size: 0.85rem;
+  color: #666;
+  margin-left: 2px;
+  flex-shrink: 0;
+}
+
+/* ✅ 순위 상승/하락 플래시 */
+@keyframes flashGreen {
+  0% { background-color: #e6ffed; }
+  50% { background-color: #e6ffed; }
+  100% { background-color: transparent; }
+}
+
+@keyframes flashRed {
+  0% { background-color: #ffebee; }
+  50% { background-color: #ffebee; }
+  100% { background-color: transparent; }
+}
+
+.rankUp {
+  animation: flashGreen 1.5s ease-out;
+}
+
+.rankDown {
+  animation: flashRed 1.5s ease-out;
+}
+
+/* ✅ 1등 카드 골드 강조 (.rank1 은 RankItem.jsx에서 styles[`rank${rank}`]로 씀) */
+.rank1 {
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
+}

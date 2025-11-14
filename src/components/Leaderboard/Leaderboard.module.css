@@ -1,0 +1,42 @@
+.leaderboard {
+  display: grid;
+  /* PC 기준 4열 고정 → 8개 카드면 2행으로 배치 */
+  grid-template-columns: repeat(4, minmax(0, 1fr));     
+  column-gap: 16px;             /* 가로 카드 간격 (필요하면 8px 또는 0으로 더 줄여도 됨) */
+  row-gap: 16px;                /* 세로 카드 간격 */
+  width: 100%;
+  max-width: 1400px;            /* TV에서 너무 넓어지지 않도록 상한 */
+  margin: 0 auto;
+  padding: 4px 24px 24px;       /* 위쪽 여백만 살짝, 좌우/아래는 최소한 */
+  box-sizing: border-box;
+}
+
+/* 화면이 줄어들 때는 열 수를 줄이기 */
+@media (max-width: 1100px) {
+  .leaderboard {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .leaderboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .leaderboard {
+    grid-template-columns: 1fr;
+    padding: 4px 12px 20px;
+  }
+}
+
+/* 로딩 스피너/텍스트용 */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.5rem;
+  color: #666;
+}

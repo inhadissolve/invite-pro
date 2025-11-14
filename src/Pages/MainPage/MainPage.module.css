@@ -1,0 +1,59 @@
+.mainPage {
+  font-family: 'Noto Sans KR', sans-serif; /* 한글 폰트 추가 (나중에 import 필요) */
+  background-color: #eef1f5; /* 전체 페이지 배경색 변경 */
+  min-height: 100vh;
+  color: #333;
+}
+
+.header {
+  background-color: #ffffff;
+  color: #34495e;
+  /* 🔽 세로 공간 줄이기: padding, margin-bottom 축소 */
+  padding: 5px 5px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 5px;
+
+  background-image: url('/images/header_banner.jpg');
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.4rem; /* 2.8rem → 2.4rem */
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #323131;
+
+  text-shadow: 2px 2px 4px rgba(155, 152, 152, 0.7);
+}
+
+.subtitle {
+  font-size: 1.7rem; 
+  font-weight: 500;     /* 1.1rem → 0.95rem */
+  color: #e51b17;
+  margin-top: 3px;          /* 10px → 6px */
+  text-shadow: 3px 3px 5px rgba(230, 201, 113, 0.89);
+}
+
+.adminNav {
+  margin-top: 3px;         /* 20px → 10px */
+}
+
+.adminLink {
+  display: inline-block;
+  padding: 6px 14px;        /* 10x20 → 6x14 */
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.adminLink:hover {
+  background-color: #0056b3;
+}
