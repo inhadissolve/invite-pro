@@ -56,4 +56,7 @@ desktop.ini
 
 # eslint, prettier 등 캐시
 .eslintcache
-.jpg
+
+public/images/students/*.jpg
+public/images/students/*.jpeg
+
