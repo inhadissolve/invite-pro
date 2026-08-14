@@ -1,111 +1,297 @@
-// src/app/page.jsx
-"use client";
+import Image from "next/image";
 
-import Head from "next/head";
-import Script from "next/script";
-import { useEffect } from "react";
-import "./invite.css"; // 초대장 전용 CSS
+import QuickActions from "@/components/QuickActions";
+import { EVENT, MAP_LINKS } from "@/constants/event";
 
-// 로직 훅
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { initKakao } from "@/lib/kakao";
+function SectionHeading({ id, eyebrow, title, description }) {
+  return (
+    <div className="section-heading">
+      <p>{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      {description ? <div>{description}</div> : null}
+    </div>
+  );
+}
 
-// 컴포넌트
-import Dday from "./components/Dday";
-import Hero from "./components/Hero";
-import InviteSlider from "./components/InviteSlider";
-import GallerySlider from "./components/GallerySlider";
-import Map from "./components/Map";
-import Calendar from "./components/Calendar";
-import ContactList from "./components/ContactList";
-import KakaoShare from "./components/KakaoShare";
-import QrCode from "./components/QrCode";
+function SlotIcon({ type }) {
+  if (type === "video") {
+    return (
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="9" y="13" width="46" height="38" rx="8" />
+        <path d="m28 24 14 8-14 8Z" />
+      </svg>
+    );
+  }
 
-// 상수
-import { inviteImgs, galleryImgs } from "@/constants/event";
-
-export default function InvitePage() {
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const KAKAO_APP_KEY =
-    process.env.NEXT_PUBLIC_KAKAO_APP_KEY || "dd5389e207535b56dbceb451afa5b1c3";
-  const PAGE_PATH = "/"; // 이제 홈페이지이므로 "/" 입니다.
-  const ogImage = `${SITE_URL}/images/book-banner.jpg`;
-
-  // 스크롤 애니메이션 훅 실행
-  useScrollReveal();
-
-  // 이미지 사전 로드
-  useEffect(() => {
-    const all = [...inviteImgs, ...galleryImgs];
-    const preload = () =>
-      all.forEach((src) => {
-        const i = new Image();
-        i.decoding = "async";
-        i.src = src;
-      });
-
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(preload);
-    } else {
-      setTimeout(preload, 200);
-    }
-  }, []);
+  if (type === "person") {
+    return (
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="23" r="10" />
+        <path d="M14 53c2-11 8-17 18-17s16 6 18 17" />
+      </svg>
+    );
+  }
 
   return (
-    <>
-      {/* 2월 문해 전도집회용 Head */}
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover"
-        />
-        <title>농인선교부 전도집회 | 대한예수교침례회 인천교회</title>
-        <meta
-          name="description"
-          content="대한예수교침례회 인천교회 농인선교부 문해 전도집회(2026/02/05~08)에 초대합니다."
-        />
-        {SITE_URL && <link rel="canonical" href={SITE_URL + PAGE_PATH} />}
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="농인선교부 전도집회 | 대한예수교침례회 인천교회"
-        />
-        <meta
-          property="og:description"
-          content="일정: 2/5(목)~8(일) | 장소: 인천교회 교육원 3층"
-        />
-        <meta property="og:image" content={ogImage} />
-        {SITE_URL && <meta property="og:url" content={SITE_URL + PAGE_PATH} />}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="theme-color" content="#0f2f2a" />
-        {[...inviteImgs.slice(0, 2), ...galleryImgs.slice(0, 2)].map((u) => (
-          <link key={u} rel="preload" as="image" href={u} />
-        ))}
-      </Head>
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <rect x="9" y="12" width="46" height="40" rx="7" />
+      <circle cx="23" cy="25" r="5" />
+      <path d="m14 46 12-12 8 8 6-6 10 10" />
+    </svg>
+  );
+}
 
-      {/* Kakao SDK (onLoad로 안전하게 초기화) */}
-      <Script
-        src="https://developers.kakao.com/sdk/js/kakao.js"
-        strategy="afterInteractive"
-        onLoad={() => initKakao(KAKAO_APP_KEY)}
-      />
+export default function InvitePage() {
+  return (
+    <div className="invite-page" id="top">
+      <section className="hero" aria-labelledby="invite-title">
+        <div className="hero__glow" aria-hidden="true" />
+        <div className="hero__inner">
+          <div className="hero__copy">
+            <p className="hero__eyebrow">{EVENT.organization}</p>
+            <h1 id="invite-title">
+              <span>{EVENT.title}</span>
+              <strong>{EVENT.invitation}</strong>
+            </h1>
+            <p className="hero__message">{EVENT.message}</p>
 
-      {/* --- 페이지 컴포넌트 조립 --- */}
-      <Dday />
-      <Hero />
+            <dl className="hero-facts" aria-label="집회 핵심 정보">
+              <div>
+                <dt>강사</dt>
+                <dd>
+                  {EVENT.speaker.name} {EVENT.speaker.role}
+                </dd>
+              </div>
+              <div>
+                <dt>일시</dt>
+                <dd>{EVENT.dateRangeShort}</dd>
+              </div>
+              <div>
+                <dt>장소</dt>
+                <dd>{EVENT.venue.name}</dd>
+              </div>
+            </dl>
 
-      <div className="brand-under-book" data-reveal="up" data-delay="60ms">
-        <img src="/images/logo_dove.png" alt="대한예수교침례회 인천교회 로고" />
-        <span>대한예수교침례회 인천교회 농인선교부</span>
-      </div>
+            <div className="hero__links" aria-label="빠른 이동">
+              <a className="button button--gold" href="#schedule">
+                집회 일정 보기
+              </a>
+              <a className="button button--outline" href="#directions">
+                오시는 길 보기
+              </a>
+            </div>
+          </div>
 
-      <InviteSlider />
-      <GallerySlider />
-      <Map />
-      <Calendar />
-      <ContactList />
-      <KakaoShare />
-      <QrCode />
-    </>
+          <figure className="poster-card">
+            <Image
+              src={EVENT.assets.posterFront}
+              alt={`${EVENT.organization} 전도집회 초대 엽서. 강사 조민수 목사, 9월 3일부터 6일까지, 인천교회 교육원 농선부실`}
+              width={1054}
+              height={1492}
+              sizes="(max-width: 760px) calc(100vw - 40px), 430px"
+              priority
+            />
+            <figcaption>보내주신 초대 엽서 앞면</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section className="summary-band" aria-label="행사 요약">
+        <div>
+          <span aria-hidden="true">4</span>
+          <p>
+            <strong>나흘간 진행</strong>
+            <small>목요일부터 일요일까지</small>
+          </p>
+        </div>
+        <div>
+          <span aria-hidden="true">518</span>
+          <p>
+            <strong>버스로 오기</strong>
+            <small>주안역·인하대역에서 탑승</small>
+          </p>
+        </div>
+        <div>
+          <span aria-hidden="true">문자</span>
+          <p>
+            <strong>간편하게 문의</strong>
+            <small>전화번호를 누르면 바로 연결</small>
+          </p>
+        </div>
+      </section>
+
+      <section className="content-section" id="schedule" aria-labelledby="schedule-title">
+        <SectionHeading
+          id="schedule-title"
+          eyebrow="집회 일정"
+          title="날짜와 시간을 크게 확인하세요"
+          description="복잡한 달력 대신, 참석하실 날짜를 바로 찾을 수 있도록 회차별로 정리했습니다."
+        />
+
+        <div className="schedule-list">
+          {EVENT.sessions.map((session, index) => (
+            <article className="schedule-card" key={session.id}>
+              <span className="schedule-card__number" aria-hidden="true">
+                {index + 1}
+              </span>
+              <div>
+                <p>
+                  {session.date} <strong>{session.weekday}</strong>
+                </p>
+                <time dateTime={session.iso}>{session.time}</time>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="venue-callout">
+          <span className="venue-callout__icon" aria-hidden="true">
+            ●
+          </span>
+          <div>
+            <small>모이는 곳</small>
+            <strong>{EVENT.venue.name}</strong>
+            <p>{EVENT.venue.address}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section content-section--soft" aria-labelledby="media-title">
+        <SectionHeading
+          id="media-title"
+          eyebrow="추가 자료 영역"
+          title="강사 사진을 먼저 넣어 두었어요"
+          description="수어 안내 영상과 집회 사진은 자료를 보고 나중에 선택할 수 있습니다. 사용하지 않는 칸은 통째로 숨길 수 있습니다."
+        />
+
+        <div className="slot-grid">
+          {EVENT.optionalSlots.map((slot) => (
+            <article
+              className={slot.image ? "media-slot media-slot--filled" : "media-slot"}
+              key={slot.id}
+            >
+              <div
+                className={
+                  slot.image
+                    ? "media-slot__visual media-slot__visual--image"
+                    : "media-slot__visual"
+                }
+              >
+                {slot.image ? (
+                  <Image
+                    src={slot.image}
+                    alt={slot.imageAlt}
+                    fill
+                    sizes="(max-width: 559px) calc(100vw - 52px), (max-width: 759px) calc(50vw - 36px), 360px"
+                  />
+                ) : (
+                  <>
+                    <SlotIcon type={slot.icon} />
+                    <span>자료 자리</span>
+                  </>
+                )}
+              </div>
+              <p>{slot.eyebrow}</p>
+              <h3>{slot.title}</h3>
+              <div>{slot.description}</div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section" id="directions" aria-labelledby="directions-title">
+        <SectionHeading
+          id="directions-title"
+          eyebrow="찾아오시는 길"
+          title="약도와 순서를 함께 준비했어요"
+          description="지도만 보지 않아도 되도록, 엽서의 버스 경로를 단계별 글자로 다시 안내합니다."
+        />
+
+        <div className="directions-layout">
+          <figure className="directions-map">
+            <Image
+              src={EVENT.assets.directions}
+              alt="인천교회 교육원 약도. 주안역과 인하대역 7번 출구에서 518번 버스로 오는 길"
+              width={1491}
+              height={1055}
+              sizes="(max-width: 900px) calc(100vw - 40px), 700px"
+            />
+            <figcaption>
+              <span>엽서에 포함된 전체 약도</span>
+              <a
+                href={EVENT.assets.directions}
+                target="_blank"
+                rel="noreferrer"
+              >
+                약도 크게 보기
+              </a>
+            </figcaption>
+          </figure>
+
+          <div className="route-list">
+            {EVENT.routes.map((route) => (
+              <article className={`route-card route-card--${route.tone}`} key={route.id}>
+                <h3>{route.title}</h3>
+                <ol>
+                  {route.steps.map((step) => (
+                    <li key={step}>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="map-actions" aria-label="지도 앱으로 길찾기">
+          <a className="button button--kakao" href={MAP_LINKS.kakao} target="_blank" rel="noreferrer">
+            카카오맵에서 보기
+          </a>
+          <a className="button button--naver" href={MAP_LINKS.naver} target="_blank" rel="noreferrer">
+            네이버지도에서 보기
+          </a>
+        </div>
+      </section>
+
+      <section className="content-section content-section--contact" id="contact" aria-labelledby="contact-title">
+        <SectionHeading
+          id="contact-title"
+          eyebrow="문의하기"
+          title="번호를 누르면 바로 연락할 수 있어요"
+          description="공명옥·곽보경 담당자에게 문자 또는 전화로 바로 문의할 수 있습니다."
+        />
+
+        <div className="contact-grid">
+          {EVENT.contacts.map((contact) => (
+            <article className="contact-card" key={contact.id}>
+              <div className="contact-card__heading">
+                <span>{contact.label}</span>
+                <small>{contact.name}</small>
+              </div>
+              <a className="contact-card__number" href={`tel:${contact.phone}`}>
+                {contact.display}
+              </a>
+              <div className="contact-card__actions">
+                <a className="button button--message" href={`sms:${contact.phone}`}>
+                  문자 보내기
+                </a>
+                <a className="button button--phone" href={`tel:${contact.phone}`}>
+                  전화하기
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="closing-card" aria-label="초대 인사">
+        <p>{EVENT.invitation}</p>
+        <h2>{EVENT.message}</h2>
+        <span>{EVENT.organization}</span>
+      </section>
+
+      <QuickActions />
+    </div>
   );
 }
