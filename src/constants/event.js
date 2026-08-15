@@ -97,29 +97,78 @@ export const EVENT = {
     speakerPortrait: SPEAKER_PORTRAIT,
     logo: "/images/logo_dove.png",
   },
+  invitationSlides: [
+    {
+      id: "invite-1",
+      src: "/images/초대1.jpg",
+      caption: "초대합니다 — 농인선교부 전도집회",
+    },
+    {
+      id: "invite-2",
+      src: "/images/초대2.jpg",
+      caption: "인생, 나는 어디에 서 있는 걸까?",
+    },
+    {
+      id: "invite-3",
+      src: "/images/초대3.jpg",
+      caption: "나는 잘 살고 있는가?",
+    },
+    {
+      id: "invite-4",
+      src: "/images/초대4.jpg",
+      caption: "다들 잘 사는 것 같은데…",
+    },
+    {
+      id: "invite-5",
+      src: "/images/초대5.jpg",
+      caption: "나는 어디로 가고 있는 걸까?",
+    },
+    {
+      id: "invite-6",
+      src: "/images/초대6.jpg",
+      caption: "행복하게 살 수 있을까?",
+    },
+    {
+      id: "invite-7",
+      src: "/images/초대7.jpg",
+      caption: "예수 그리스도의 사랑으로 당신을 초대합니다",
+    },
+  ],
+  pastEventPhotos: [
+    {
+      id: "event-2024-01",
+      src: "/images/2024_01.jpg",
+      caption: "2024년 농인선교부 전도집회 단체 사진",
+    },
+    {
+      id: "event-2024-02",
+      src: "/images/2024_02.jpg",
+      caption: "2024년 농인선교부 전도집회 말씀과 수어통역",
+    },
+    {
+      id: "event-2024-04",
+      src: "/images/2024_04.jpg",
+      caption: "2024년 농인선교부 전도집회 수어찬양",
+    },
+  ],
   optionalSlots: [
+    {
+      id: "speaker-photo",
+      eyebrow: "강사",
+      title: "조민수 목사",
+      description: "이번 전도집회에서 말씀을 전해 주십니다.",
+      icon: "person",
+      image: SPEAKER_PORTRAIT,
+      imageAlt: "조민수 목사 강사 사진",
+      isPublished: true,
+    },
     {
       id: "sign-video",
       eyebrow: "선택 자료",
       title: "수어 안내 영상",
-      description: "영상 자료를 사용하기로 하면 이 자리에 큰 재생 화면이 들어갑니다.",
+      description: "수어로 안내 내용을 확인할 수 있습니다.",
       icon: "video",
-    },
-    {
-      id: "speaker-photo",
-      eyebrow: "준비된 자료",
-      title: "강사 사진",
-      description: "조민수 목사님의 강사 사진입니다.",
-      icon: "person",
-      image: SPEAKER_PORTRAIT,
-      imageAlt: "조민수 목사 강사 사진",
-    },
-    {
-      id: "event-gallery",
-      eyebrow: "선택 자료",
-      title: "집회 사진",
-      description: "행사 분위기를 보여 줄 사진은 최대 3장까지 편하게 추가할 수 있습니다.",
-      icon: "image",
+      isPublished: false,
     },
   ],
 };

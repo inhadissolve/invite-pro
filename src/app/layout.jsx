@@ -13,6 +13,11 @@ const socialImage = siteUrl ? `${siteUrl}${EVENT.assets.posterFront}` : undefine
 export const metadata = {
   title: pageTitle,
   description: pageDescription,
+  icons: {
+    icon: [{ url: EVENT.assets.logo, type: "image/png" }],
+    shortcut: [EVENT.assets.logo],
+    apple: [{ url: EVENT.assets.logo, type: "image/png" }],
+  },
   ...(siteUrl
     ? {
         metadataBase: new URL(siteUrl),
