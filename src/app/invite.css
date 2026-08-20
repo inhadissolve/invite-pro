@@ -669,7 +669,7 @@
   scroll-padding-inline: 2px;
   scrollbar-color: var(--forest-700) var(--cream-200);
   scrollbar-width: thin;
-  touch-action: pan-x pinch-zoom;
+  touch-action: auto;
   padding: 2px 2px 12px;
 }
 
